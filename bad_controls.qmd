@@ -1,0 +1,77 @@
+---
+title: "Bad Controls"
+bibliography: references.bib
+format: html
+editor: visual
+---
+
+```{r include=FALSE}
+library(dagitty)
+library(ggdag)
+library(ggplot2)
+
+knitr::opts_chunk$set(dev = "png")
+```
+
+## A Crash Course in Bad Controls
+
+These are my notes from @cinelli2021crash.
+
+## Good and Bad Controls
+
+Good controls eliminate "omitted variable bias."
+
+Bad controls induce a *non-causal association*.
+
+### You should include all "relevant" variables
+
+Relevant is nuanced here. There are certain variables you do *not* want to include
+
+Bad controls are controls that would be affected by the treatment. They might be thought of as a dependent variable themselves. These conditions are neither necessary or sufficient for deciding whether a control is "good".
+
+## Preliminaries and basic terminology
+
+### Models 1, 2, and 3
+
+```{r echo=FALSE}
+dag <- dagitty('dag{
+  X [exposure,pos="1,0"]
+  Z [pos="2,-1"]
+  Y [outcome,pos="3,0"]
+  X -> Y
+  X <- Z -> Y
+}')
+ggdag(dag, layout="circle") + theme_void()
+```
+
+```{r echo=FALSE}
+
+```
+
+```{r echo=FALSE}
+bigger_dag <- dagify(y ~ x + a + b,
+                     x ~ a + b,
+                     exposure = "x",
+                     outcome = "y")
+#  automatically searches the paths between the variables labelled exposure and 
+#  outcome
+dag_paths(bigger_dag)  
+ggdag_paths(bigger_dag) + theme_void()
+```
+
+```{r}
+ggdag_parents(bigger_dag, "x") + theme_void()
+```
+
+```{r fig.width=12}
+set.seed(123)
+x <- rnorm(10)
+y <- rnorm(10)
+
+ggplot(data.frame(cbind(x, y)), aes(x = x, y = y)) +
+  geom_point(size = 16)
+```
+
+```{r}
+data.frame(cbind(x, y))
+```
