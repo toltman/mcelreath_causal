@@ -51,10 +51,24 @@ In the example (pp. 3), with X -> Y and a simple confounder Z there isn't enough
 
 - Changes in association do not uniquely identify underlying causal mechanisms.
 
+This problem requires a causal model...
+
+> "...the reason being that surface changes in observed associations do not uniquely identify the underlying mechanism responsible for the change."
+
 **Tool 6** - Recovering missing data
 
 - Formalize the conditions under which causal and probalistic relationships can be recovered.
 
+> "The rich literature on this problem is wedded to a model-free paradigm of associational analysis and, accordingly, it is severely limiited to situations where missingness occurs at random."
+
 **Tool 7** - Causal Discovery
 
 - d-separation: testable implications of causal model natural experiments.
+- Infer direction of arrows by determining which variables should be "more Gaussian."
+- Natural experiments - sudden changes in X
+
+## Conclusions
+
+The models used here are structural (there is no committment to a particular form of distributions)
+
+All inferences depend critically on the veracity of the assumed structure.
